@@ -580,3 +580,29 @@ input[list]::-webkit-calendar-picker-indicator { display: none !important; opaci
     border-color: var(--primary) !important;
     font-weight: 800 !important;
 }
+
+/* ==================== 🚀 PERFORMANCE BOOST (LAG FIX) 🚀 ==================== */
+
+/* ১. রুটিন কার্ডগুলো থেকে ভারী ব্লার (Blur) সরিয়ে Vercel-এর সলিড ডার্ক কালার দেওয়া হলো */
+[data-theme="dark"] .glass-card, 
+[data-theme="dark"] .routine-card,
+[data-theme="dark"] .adv-m-card,
+[data-theme="dark"] .adv-matrix-wrapper {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #0a0a0a !important; /* নেক্সট জেএস-এর পারফেক্ট সলিড ডার্ক কালার */
+    box-shadow: none !important; /* অপ্রয়োজনীয় শ্যাডো বাদ দিয়ে পারফরম্যান্স বাড়ানো হলো */
+}
+
+/* ২. হোভার করলে কার্ডের কালার হালকা চেঞ্জ হবে (স্মুথ ফিল) */
+[data-theme="dark"] .routine-card:hover,
+[data-theme="dark"] .adv-m-card:hover {
+    background: #111111 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ৩. স্ক্রলিং মাখনের মতো স্মুথ করার জন্য হার্ডওয়্যার অ্যাকসেলারেশন (GPU Hack) */
+.routineList, .adv-matrix-wrapper, .routine-card {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
